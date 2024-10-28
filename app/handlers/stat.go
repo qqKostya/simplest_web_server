@@ -1,11 +1,14 @@
 package handlers
 
 import (
+    "fmt"
     "github.com/labstack/echo"
     "net/http"
+    ds "simplest_web_server/app/datastore"
 )
 
-// Stat handler
-func Stat(c echo.Context) error {
-    return c.String(http.StatusOK, `{ "total": 0 }`)
+func Stat(ds *ds.Datastore) echo.HandlerFunc {
+    return func(c echo.Context) error {
+        return c.String(http.StatusOK, fmt.Sprintf(`{ "total": %d }`, ds.TotalHits()))
+    }
 }
