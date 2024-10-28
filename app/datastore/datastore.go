@@ -1,13 +1,22 @@
 package datastore
 
+import (
+	"sync"
+)
+
 type Datastore struct {
-    hitCounter int
+	hitCounter int
+	mu         sync.RWMutex
 }
 
 func (ds *Datastore) RegisterHit() {
-    ds.hitCounter++
+	ds.mu.Lock()
+	defer ds.mu.Unlock()
+	ds.hitCounter++
 }
 
 func (ds *Datastore) TotalHits() int {
-    return ds.hitCounter
+	ds.mu.RLock()
+	defer ds.mu.RUnlock()
+	return ds.hitCounter
 }

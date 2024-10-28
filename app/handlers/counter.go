@@ -1,8 +1,8 @@
 package handlers
 
 import (
-    "github.com/labstack/echo"
-    "net/http"
+	"github.com/labstack/echo"
+	"net/http"
 	ds "simplest_web_server/app/datastore"
 )
 
