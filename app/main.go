@@ -1,14 +1,16 @@
 package main
 
 import (
+	"github.com/labstack/echo"
 	"net/http"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("hello world"))
+func handler(c echo.Context) error {
+	return c.String(http.StatusOK, "hello world")
 }
 
 func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	e := echo.New()
+	e.GET("/", handler)
+	e.Start(":8080")
 }
